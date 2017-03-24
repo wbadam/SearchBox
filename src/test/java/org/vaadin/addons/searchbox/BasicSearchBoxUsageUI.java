@@ -13,6 +13,16 @@ public class BasicSearchBoxUsageUI extends AbstractTest {
 
 //        searchBox.setSuggestionGenerator((s, integer) -> Arrays.asList("sug1", "sug3", "sug3"));
 
+//        searchBox.addSearchListener(event -> {
+//
+//        });
+
+        searchBox.setSearchButtonPosition(SearchBox.ButtonPosition.LEFT);
+
+        searchBox.addSearchListener(event -> {
+            System.out.println(event.getSearchTerm());
+        });
+
         return searchBox;
     }
 
