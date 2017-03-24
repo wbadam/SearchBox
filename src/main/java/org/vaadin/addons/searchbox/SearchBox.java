@@ -1,5 +1,7 @@
 package org.vaadin.addons.searchbox;
 
+import java.util.Optional;
+
 import org.vaadin.addons.AutocompleteExtension;
 import org.vaadin.addons.SuggestionGenerator;
 
@@ -11,29 +13,67 @@ import com.vaadin.ui.themes.ValoTheme;
 
 public class SearchBox<T> extends CustomComponent {
 
+    private final CssLayout searchBoxLayout = new CssLayout();
     private final TextField textField = new TextField();
     private Button searchButton = new Button("Search");
 
     private AutocompleteExtension<T> autocomplete;
 
     public SearchBox() {
-        CssLayout layout = new CssLayout();
-
 //        textField.setIcon(VaadinIcons.SEARCH);
 //        textField.addStyleName(ValoTheme.TEXTFIELD_INLINE_ICON);
 
-        layout.addComponents(textField, searchButton);
-        layout.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
+        searchBoxLayout.addComponents(textField, searchButton);
+        searchBoxLayout.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
 
-        setCompositionRoot(layout);
+        setCompositionRoot(searchBoxLayout);
     }
+
+    public TextField getSearchField() {
+        return textField;
+    }
+
+    public Button getSearchButton() {
+        return searchButton;
+    }
+
+//    public void setSearchButtonPosition(ButtonPosition position) {
+//        searchBoxLayout.removeAllComponents();
+//
+//        switch (position) {
+//        case LEFT:
+//            searchBoxLayout.addComponentAsFirst(searchButton);
+//            break;
+//        case RIGHT:
+//            searchBoxLayout.addComponent(searchButton);
+//            break;
+//        case HIDDEN:
+//            searchBoxLayout.removeComponent(searchButton);
+//            break;
+//        }
+//    }
 
     public void setSuggestionGenerator(SuggestionGenerator<T> generator) {
         if (generator != null) {
-            autocomplete = new AutocompleteExtension<>(textField);
-            autocomplete.setSuggestionGenerator(generator);
+            ensureAutocomplete().setSuggestionGenerator(generator);
         } else {
-            textField.removeExtension(autocomplete);
+            removeSuggestionGenerator();
         }
+    }
+
+    public void removeSuggestionGenerator() {
+        Optional.ofNullable(autocomplete)
+                .ifPresent(AutocompleteExtension::remove);
+    }
+
+    private AutocompleteExtension<T> ensureAutocomplete() {
+        if (autocomplete == null) {
+            autocomplete = new AutocompleteExtension<>(textField);
+        }
+        return autocomplete;
+    }
+
+    public enum ButtonPosition {
+        RIGHT, LEFT, HIDDEN
     }
 }
