@@ -1,0 +1,4 @@
+org/vaadin/addons/searchbox/BasicSearchBoxUsageUI.class
+org/vaadin/addons/searchbox/unit/SearchBoxTest.class
+org/vaadin/addons/searchbox/it/BasicJavaScriptComponentUsageIT.class
+org/vaadin/addons/searchbox/uiserver/Server.class

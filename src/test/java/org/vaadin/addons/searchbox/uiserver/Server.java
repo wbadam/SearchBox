@@ -1,4 +1,4 @@
-package org.vaadin.addons.uiserver;
+package org.vaadin.addons.searchbox.uiserver;
 
 import org.vaadin.addonhelpers.TServer;
 
