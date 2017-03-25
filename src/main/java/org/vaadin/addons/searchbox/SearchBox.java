@@ -40,6 +40,14 @@ public class SearchBox<T> extends CustomComponent {
         setCompositionRoot(searchBoxLayout);
     }
 
+    @Override
+    public void detach() {
+        super.detach();
+
+        removeSuggestionGenerator();
+        Optional.ofNullable(buttonClickHandle).ifPresent(Registration::remove);
+    }
+
     public TextField getSearchField() {
         return textField;
     }
