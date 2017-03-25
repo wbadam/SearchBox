@@ -1,7 +1,10 @@
 package org.vaadin.addons.searchbox;
 
+import java.util.Arrays;
+
 import org.vaadin.addonhelpers.AbstractTest;
 
+import com.vaadin.icons.VaadinIcons;
 import com.vaadin.ui.Component;
 
 public class BasicSearchBoxUsageUI extends AbstractTest {
@@ -9,15 +12,15 @@ public class BasicSearchBoxUsageUI extends AbstractTest {
     @Override
     public Component getTestComponent() {
         SearchBox<String> searchBox = new SearchBox<>();
-//        searchBox.setSearchButtonPosition(SearchBox.ButtonPosition.LEFT);
 
-//        searchBox.setSuggestionGenerator((s, integer) -> Arrays.asList("sug1", "sug3", "sug3"));
+        searchBox.setSuggestionGenerator((s, integer) -> Arrays
+                .asList(s + "1", s + "2", s + "3"));
 
-//        searchBox.addSearchListener(event -> {
-//
-//        });
+        searchBox.setSearchButtonPosition(SearchBox.ButtonPosition.RIGHT);
+        searchBox.setSearchButtonIcon(VaadinIcons.SEARCH, "Search");
+        searchBox.setSearchButtonCaption(null);
 
-        searchBox.setSearchButtonPosition(SearchBox.ButtonPosition.LEFT);
+        searchBox.setPlaceholder("Search");
 
         searchBox.addSearchListener(event -> {
             System.out.println(event.getSearchTerm());

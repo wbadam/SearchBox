@@ -5,6 +5,7 @@ import java.util.Optional;
 import org.vaadin.addons.AutocompleteExtension;
 import org.vaadin.addons.SuggestionGenerator;
 
+import com.vaadin.server.Resource;
 import com.vaadin.shared.Registration;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.ui.Button;
@@ -76,6 +77,18 @@ public class SearchBox<T> extends CustomComponent {
         if (needsRepaint) {
             doLayout();
         }
+    }
+
+    public void setSearchButtonIcon(Resource icon) {
+        searchButton.setIcon(icon);
+    }
+
+    public void setSearchButtonIcon(Resource icon, String iconAltText) {
+        searchButton.setIcon(icon, iconAltText);
+    }
+
+    public void setSearchButtonCaption(String caption) {
+        searchButton.setCaption(caption);
     }
 
     private void doLayout() {
