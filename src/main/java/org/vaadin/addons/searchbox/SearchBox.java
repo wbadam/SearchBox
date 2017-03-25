@@ -2,8 +2,8 @@ package org.vaadin.addons.searchbox;
 
 import java.util.Optional;
 
-import org.vaadin.addons.AutocompleteExtension;
-import org.vaadin.addons.SuggestionGenerator;
+import org.vaadin.addons.autocomplete.AutocompleteExtension;
+import org.vaadin.addons.autocomplete.generator.SuggestionGenerator;
 
 import com.vaadin.server.Resource;
 import com.vaadin.shared.Registration;

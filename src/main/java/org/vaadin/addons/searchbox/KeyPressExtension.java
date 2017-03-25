@@ -21,7 +21,7 @@ public class KeyPressExtension extends AbstractExtension {
         }
     };
 
-    public KeyPressExtension(TextField textField, Consumer<String> keyPressConsumer) {
+    KeyPressExtension(TextField textField, Consumer<String> keyPressConsumer) {
         registerRpc(rpc);
 
         this.keyPressConsumer = keyPressConsumer;

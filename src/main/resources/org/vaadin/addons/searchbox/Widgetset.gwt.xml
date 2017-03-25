@@ -5,7 +5,7 @@
 	<inherits name="com.vaadin.DefaultWidgetSet" />
 
 	<!--Autocomplete extension-->
-	<inherits name="org.vaadin.addons.Widgetset" />
+	<inherits name="org.vaadin.addons.autocomplete.Widgetset" />
 
 	<set-configuration-property name="devModeRedirectEnabled" value="true" />
 	
