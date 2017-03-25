@@ -150,6 +150,10 @@ public class SearchBox<T> extends CustomComponent {
         return autocomplete;
     }
 
+    public void search() {
+        fireSearchEvent(textField.getValue());
+    }
+
     private void fireSearchEvent(String searchTerm) {
         fireEvent(new SearchEvent(this, searchTerm));
     }
