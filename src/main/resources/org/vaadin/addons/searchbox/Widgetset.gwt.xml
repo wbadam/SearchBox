@@ -3,7 +3,10 @@
 <module>
 	<!-- WS Compiler: manually edited -->
 	<inherits name="com.vaadin.DefaultWidgetSet" />
-	
+
+	<!--Autocomplete extension-->
+	<inherits name="org.vaadin.addons.Widgetset" />
+
 	<set-configuration-property name="devModeRedirectEnabled" value="true" />
 	
 	<source path="client/"></source>
