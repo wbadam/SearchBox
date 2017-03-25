@@ -61,6 +61,10 @@ public class SearchBox<T> extends CustomComponent {
         return searchButton;
     }
 
+    public void setPlaceholder(String placeholder) {
+        textField.setPlaceholder(placeholder);
+    }
+
     public void setSearchButtonPosition(ButtonPosition position) {
         if (position == null) {
             throw new IllegalArgumentException(
