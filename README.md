@@ -1,8 +1,7 @@
-# search-field
+# searchbox
 
-This is a Vaadin add-on project created with in.virit:vaadin-addon archetype.
-The project supports plain server side extensions and JavaScript extensions.
-There are stubbs for server side composition and JavaScript component. Delete the obsolete ones and continue.
+This is a Vaadin add-on project created with in.virit:vaadin-gwt-addon archetype.
+The project supports GWT based extensions for Vaadin.
 
 ## Development instructions 
 
@@ -13,6 +12,12 @@ There are stubbs for server side composition and JavaScript component. Delete th
   * create browser level and integration tests under src/test/java/
   * Browser level tests are executed manually from IDE (JUnit case) or with Maven profile "browsertests" (mvn verify -Pbrowsertests). If you have a setup for solidly working Selenium driver(s), consider enabling that profile by default.
 4. Test also in real world projects, on good real integration test is to *create a separate demo project* using vaadin-archetype-application, build a snapshot release ("mvn install") of the add-on and use the snapshot build in it. Note, that you can save this demo project next to your add-on project and save it to same GIT(or some else SCM) repository, just keep them separated for perfect testing.
+
+
+## GWT related stuff
+
+* To recompile test widgetset, issue *mvn vaadin:compile*, if you think the widgetset changes are not picked up by Vaadin plugin, do a *mvn clean package* or try with parameter *mvn vaadin:compile -Dgwt.compiler.force=true*
+* To use superdevmode, issue "mvn vaadin:run-codeserver" and then just open superdevmode like with any other project
 
 ## Creating releases
 

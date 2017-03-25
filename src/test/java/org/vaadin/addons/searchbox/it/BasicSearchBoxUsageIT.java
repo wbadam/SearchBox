@@ -8,7 +8,7 @@ import org.vaadin.addonhelpers.automated.AbstractWebDriverCase;
  * BasicJavaSCriptComponentUsageUI. For more complex tests, consider using
  * page object pattern.
  */
-public class BasicJavaScriptComponentUsageIT extends AbstractWebDriverCase {
+public class BasicSearchBoxUsageIT extends AbstractWebDriverCase {
 
     @Test
     public void testJavaScriptComponentWithBrowser() throws InterruptedException {

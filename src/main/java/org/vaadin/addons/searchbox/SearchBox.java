@@ -23,6 +23,7 @@ public class SearchBox<T> extends CustomComponent {
     private ButtonPosition buttonPosition = ButtonPosition.RIGHT;
 
     private AutocompleteExtension<T> autocomplete;
+    private final KeyPressExtension keyPressExtension;
 
     private Registration suggestionSelectHandle;
     private Registration buttonClickHandle;
@@ -37,6 +38,9 @@ public class SearchBox<T> extends CustomComponent {
             fireSearchEvent(textField.getValue());
         });
 
+        keyPressExtension = new KeyPressExtension(textField,
+                this::fireSearchEvent);
+
         setCompositionRoot(searchBoxLayout);
     }
 
@@ -45,6 +49,7 @@ public class SearchBox<T> extends CustomComponent {
         super.detach();
 
         removeSuggestionGenerator();
+        keyPressExtension.remove();
         Optional.ofNullable(buttonClickHandle).ifPresent(Registration::remove);
     }
 
