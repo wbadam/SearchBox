@@ -20,6 +20,8 @@ import com.vaadin.ui.themes.ValoTheme;
 public class SearchBox<T> extends CustomComponent implements
         Component.Focusable{
 
+    private static final String CLASS_SEARCH_BOX_WRAPPER = "v-search-box-wrapper";
+
     private final CssLayout searchBoxLayout = new CssLayout();
 
     private final TextField textField = new TextField();
@@ -37,11 +39,16 @@ public class SearchBox<T> extends CustomComponent implements
     public SearchBox() {
         doLayout();
         searchBoxLayout.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
+        searchBoxLayout.addStyleName(CLASS_SEARCH_BOX_WRAPPER);
 
+        textField.setWidth(100, Unit.PERCENTAGE);
+
+        // Search on button click
         buttonClickHandle = searchButton.addClickListener(clickEvent -> {
             fireSearchEvent(textField.getValue());
         });
 
+        // Search on enter key press
         new KeyPressExtension(textField, this::fireSearchEvent);
 
         setCompositionRoot(searchBoxLayout);
