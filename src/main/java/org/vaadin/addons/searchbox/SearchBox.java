@@ -11,12 +11,14 @@ import com.vaadin.server.Resource;
 import com.vaadin.shared.Registration;
 import com.vaadin.shared.ui.ValueChangeMode;
 import com.vaadin.ui.Button;
+import com.vaadin.ui.Component;
 import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
 
-public class SearchBox<T> extends CustomComponent {
+public class SearchBox<T> extends CustomComponent implements
+        Component.Focusable{
 
     private final CssLayout searchBoxLayout = new CssLayout();
 
@@ -186,6 +188,21 @@ public class SearchBox<T> extends CustomComponent {
 
     private void fireSearchEvent(String searchTerm) {
         fireEvent(new SearchEvent(this, searchTerm));
+    }
+
+    @Override
+    public void focus() {
+        textField.focus();
+    }
+
+    @Override
+    public int getTabIndex() {
+        return textField.getTabIndex();
+    }
+
+    @Override
+    public void setTabIndex(int tabIndex) {
+        textField.setTabIndex(tabIndex);
     }
 
     public enum ButtonPosition {
