@@ -1,4 +1,4 @@
-package org.vaadin.addons.searchbox;
+package org.vaadin.addons.searchbox.event;
 
 import java.lang.reflect.Method;
 
