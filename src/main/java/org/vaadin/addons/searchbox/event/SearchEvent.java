@@ -1,4 +1,6 @@
-package org.vaadin.addons.searchbox;
+package org.vaadin.addons.searchbox.event;
+
+import org.vaadin.addons.searchbox.SearchBox;
 
 import com.vaadin.ui.Component;
 

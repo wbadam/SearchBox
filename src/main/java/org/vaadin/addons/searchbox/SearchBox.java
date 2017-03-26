@@ -4,6 +4,8 @@ import java.util.Optional;
 
 import org.vaadin.addons.autocomplete.AutocompleteExtension;
 import org.vaadin.addons.autocomplete.generator.SuggestionGenerator;
+import org.vaadin.addons.searchbox.event.SearchEvent;
+import org.vaadin.addons.searchbox.event.SearchListener;
 
 import com.vaadin.server.Resource;
 import com.vaadin.shared.Registration;
