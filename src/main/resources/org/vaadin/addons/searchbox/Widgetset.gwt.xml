@@ -7,6 +7,9 @@
 	<!--Autocomplete extension-->
 	<inherits name="org.vaadin.addons.autocomplete.Widgetset" />
 
+	<!--Styles-->
+	<stylesheet src="searchbox/styles.css"/>
+
 	<set-configuration-property name="devModeRedirectEnabled" value="true" />
 	
 	<source path="client/"></source>
