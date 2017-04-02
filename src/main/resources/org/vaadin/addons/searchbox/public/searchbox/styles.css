@@ -1,3 +1,5 @@
 .v-search-box-wrapper {
+    position: relative;
     display: inline-flex;
+    width: 100%;
 }

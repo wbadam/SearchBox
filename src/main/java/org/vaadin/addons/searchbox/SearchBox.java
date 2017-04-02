@@ -37,8 +37,23 @@ public class SearchBox<T> extends CustomComponent implements
     private int debounceTime = 300;
 
     public SearchBox() {
+        init();
+    }
+
+    public SearchBox(String caption, ButtonPosition position) {
+        init();
+        setSearchButtonCaption(caption);
+        setSearchButtonPosition(position);
+    }
+
+    public SearchBox(Resource icon, ButtonPosition position) {
+        init();
+        setSearchButtonIcon(icon);
+        setSearchButtonPosition(position);
+    }
+
+    private void init() {
         doLayout();
-        searchBoxLayout.setStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         searchBoxLayout.addStyleName(CLASS_SEARCH_BOX_WRAPPER);
 
         textField.setWidth(100, Unit.PERCENTAGE);
@@ -51,6 +66,7 @@ public class SearchBox<T> extends CustomComponent implements
         // Search on enter key press
         new KeyPressExtension(textField, this::fireSearchEvent);
 
+        setWidthUndefined();
         setCompositionRoot(searchBoxLayout);
     }
 
@@ -104,15 +120,18 @@ public class SearchBox<T> extends CustomComponent implements
 
     private void doLayout() {
         searchBoxLayout.removeAllComponents();
+        searchBoxLayout.removeStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
 
         if (ButtonPosition.LEFT == buttonPosition) {
             searchBoxLayout.addComponent(searchButton);
+            searchBoxLayout.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         }
 
         searchBoxLayout.addComponent(textField);
 
         if (ButtonPosition.RIGHT == buttonPosition) {
             searchBoxLayout.addComponent(searchButton);
+            searchBoxLayout.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
         }
     }
 
