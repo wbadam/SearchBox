@@ -29,10 +29,13 @@ public class SearchBox<T> extends CustomComponent implements
     private final Button searchButton = new Button("Search");
     private ButtonPosition buttonPosition = ButtonPosition.RIGHT;
 
+    private SearchMode searchMode = SearchMode.EXPLICIT;
+
     private AutocompleteExtension<T> autocomplete;
 
     private Registration suggestionSelectHandle;
     private Registration buttonClickHandle;
+    private Registration valueChangeHandle;
 
     private int debounceTime = 300;
 
@@ -66,6 +69,8 @@ public class SearchBox<T> extends CustomComponent implements
         // Search on enter key press
         new KeyPressExtension(textField, this::fireSearchEvent);
 
+        setValueChangeListener();
+
         setWidthUndefined();
         setCompositionRoot(searchBoxLayout);
     }
@@ -77,6 +82,7 @@ public class SearchBox<T> extends CustomComponent implements
         Optional.ofNullable(suggestionSelectHandle)
                 .ifPresent(Registration::remove);
         Optional.ofNullable(buttonClickHandle).ifPresent(Registration::remove);
+        Optional.ofNullable(valueChangeHandle).ifPresent(Registration::remove);
     }
 
     public TextField getSearchField() {
@@ -141,39 +147,49 @@ public class SearchBox<T> extends CustomComponent implements
     }
 
     public void setSearchMode(SearchMode searchMode) {
+        if (searchMode == null) {
+            throw new IllegalArgumentException("Search mode cannot be null");
+        }
+
+        this.searchMode = searchMode;
+
+        setValueChangeListener();
+    }
+
+    public SearchMode getSearchMode() {
+        return this.searchMode;
+    }
+
+    private void setValueChangeListener() {
+
+        // Remove previous listener
+        Optional.ofNullable(valueChangeHandle).ifPresent(Registration::remove);
+
         switch (searchMode) {
         case EAGER:
-            setEager();
+            textField.setValueChangeMode(ValueChangeMode.EAGER);
+            valueChangeHandle = textField.addValueChangeListener(
+                    event -> fireSearchEvent(event.getValue()));
             break;
         case DEBOUNCE:
-            setDebounce();
+            textField.setValueChangeMode(ValueChangeMode.LAZY);
+            valueChangeHandle = textField.addValueChangeListener(
+                    event -> fireSearchEvent(event.getValue()));
+            textField.setValueChangeTimeout(debounceTime);
             break;
         case EXPLICIT:
-            setExplicit();
+            textField.setValueChangeMode(ValueChangeMode.BLUR);
             break;
         }
     }
 
-    private void setEager() {
-        textField.setValueChangeMode(ValueChangeMode.EAGER);
-        textField.addValueChangeListener(event -> {
-            fireSearchEvent(event.getValue());
-        });
-    }
-
-    private void setDebounce() {
-        textField.setValueChangeMode(ValueChangeMode.LAZY);
-        textField.addValueChangeListener(event -> {
-            fireSearchEvent(event.getValue());
-        });
-    }
-
-    private void setExplicit() {
-        textField.setValueChangeMode(ValueChangeMode.BLUR);
-    }
-
     public void setDebounceTime(int millis) {
         this.debounceTime = millis;
+
+        // Reset value change timeout if necessary
+        if (searchMode == SearchMode.DEBOUNCE) {
+            setValueChangeListener();
+        }
     }
 
     public int getDebounceTime() {
