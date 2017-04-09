@@ -16,19 +16,19 @@ public class SearchModeUsageUI extends AbstractTest {
     public Component getTestComponent() {
         Layout layout = new VerticalLayout();
 
-        SearchBox<String> searchBox1 = new SearchBox<>("Eager", SearchBox.ButtonPosition.RIGHT);
+        SearchBox searchBox1 = new SearchBox("Eager", SearchBox.ButtonPosition.RIGHT);
         searchBox1.setSuggestionGenerator(this::suggest);
         searchBox1.setSearchMode(SearchBox.SearchMode.EAGER);
         searchBox1.addSearchListener(event -> Notification.show(event.getSearchTerm()));
         layout.addComponent(searchBox1);
 
-        SearchBox<String> searchBox2 = new SearchBox<>("Debounce", SearchBox.ButtonPosition.RIGHT);
+        SearchBox searchBox2 = new SearchBox("Debounce", SearchBox.ButtonPosition.RIGHT);
         searchBox2.setSuggestionGenerator(this::suggest);
         searchBox2.setSearchMode(SearchBox.SearchMode.DEBOUNCE);
         searchBox2.addSearchListener(event -> Notification.show(event.getSearchTerm()));
         layout.addComponent(searchBox2);
 
-        SearchBox<String> searchBox3 = new SearchBox<>("Explicit", SearchBox.ButtonPosition.RIGHT);
+        SearchBox searchBox3 = new SearchBox("Explicit", SearchBox.ButtonPosition.RIGHT);
         searchBox3.setSuggestionGenerator(this::suggest);
         searchBox3.setSearchMode(SearchBox.SearchMode.EXPLICIT);
         searchBox3.addSearchListener(event -> Notification.show(event.getSearchTerm()));
