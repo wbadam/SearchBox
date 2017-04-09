@@ -19,10 +19,25 @@ import com.vaadin.ui.themes.ValoTheme;
 
 /**
  * Search Box component with autocomplete functionality.
- *
- * @param <T>
+ * <p>
+ * The search box consists of a search field and an optional search button on
+ * either the left or the right side of the field. By pressing the button or the
+ * ENTER key, a {@link SearchEvent} is fired containing the text field's value
+ * as the search term. The search event can be handled by attaching a {@link
+ * SearchListener} to the search box component.
+ * <p>
+ * The search event is fired explicitly on search command (e.g. by pressing the
+ * search button), or, depending on the search mode, possibly a short time after
+ * the user stopped typing in the field or even after every key press.
+ * <p>
+ * For helping the user with the search, it is possible to show search
+ * suggestions in a selectable drop down list. The suggestions are generated for
+ * the current query by a {@link SuggestionGenerator}.
+ * <p>
+ * Search field and search button are customizable through special methods or by
+ * accessing the components directly.
  */
-public class SearchBox<T> extends CustomComponent implements
+public class SearchBox extends CustomComponent implements
         Component.Focusable {
 
     private static final String CLASS_SEARCH_BOX_WRAPPER = "v-search-box-wrapper";
@@ -36,7 +51,7 @@ public class SearchBox<T> extends CustomComponent implements
 
     private SearchMode searchMode = SearchMode.EXPLICIT;
 
-    private AutocompleteExtension<T> autocomplete;
+    private AutocompleteExtension<String> autocomplete;
 
     private Registration suggestionSelectHandle;
     private Registration buttonClickHandle;
@@ -44,16 +59,37 @@ public class SearchBox<T> extends CustomComponent implements
 
     private int debounceTime = 300;
 
+    /**
+     * Creates a search box component.
+     */
     public SearchBox() {
         init();
     }
 
+    /**
+     * Creates a search box component with specific search button caption and
+     * position.
+     *
+     * @param caption
+     *         caption to appear on the search button
+     * @param position
+     *         position of the search button
+     */
     public SearchBox(String caption, ButtonPosition position) {
         init();
         setSearchButtonCaption(caption);
         setSearchButtonPosition(position);
     }
 
+    /**
+     * Creates a search box component with specific search button icon and
+     * position.
+     *
+     * @param icon
+     *         resource of the icon to appear on the search button
+     * @param position
+     *         position of the search button
+     */
     public SearchBox(Resource icon, ButtonPosition position) {
         init();
         setSearchButtonIcon(icon);
@@ -90,10 +126,20 @@ public class SearchBox<T> extends CustomComponent implements
         Optional.ofNullable(valueChangeHandle).ifPresent(Registration::remove);
     }
 
+    /**
+     * Gets the search field.
+     *
+     * @return search field component of this search box
+     */
     public TextField getSearchField() {
         return textField;
     }
 
+    /**
+     * Gets the search button.
+     *
+     * @return search button component of this search box
+     */
     public Button getSearchButton() {
         return searchButton;
     }
@@ -337,7 +383,7 @@ public class SearchBox<T> extends CustomComponent implements
      *         generator to be set
      * @see AutocompleteExtension#setSuggestionGenerator(SuggestionGenerator)
      */
-    public void setSuggestionGenerator(SuggestionGenerator<T> generator) {
+    public void setSuggestionGenerator(SuggestionGenerator<String> generator) {
         if (generator != null) {
             ensureAutocomplete().setSuggestionGenerator(generator);
         } else {
@@ -356,7 +402,7 @@ public class SearchBox<T> extends CustomComponent implements
                 .ifPresent(AutocompleteExtension::remove);
     }
 
-    private AutocompleteExtension<T> ensureAutocomplete() {
+    private AutocompleteExtension<String> ensureAutocomplete() {
         if (autocomplete == null) {
             autocomplete = new AutocompleteExtension<>(textField);
 
