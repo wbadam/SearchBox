@@ -17,8 +17,13 @@ import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
 
+/**
+ * Search Box component with autocomplete functionality.
+ *
+ * @param <T>
+ */
 public class SearchBox<T> extends CustomComponent implements
-        Component.Focusable{
+        Component.Focusable {
 
     private static final String CLASS_SEARCH_BOX_WRAPPER = "v-search-box-wrapper";
 
@@ -93,10 +98,33 @@ public class SearchBox<T> extends CustomComponent implements
         return searchButton;
     }
 
+    /**
+     * Sets the placeholder text for the search field.
+     *
+     * @param placeholder
+     *         the placeholder text to be set.
+     * @see TextField#setPlaceholder(String)
+     */
     public void setPlaceholder(String placeholder) {
         textField.setPlaceholder(placeholder);
     }
 
+    /**
+     * Gets the placeholder text of the search field.
+     *
+     * @return the placeholder text currently set for the search field
+     * @see TextField#getPlaceholder()
+     */
+    public String getPlaceholder() {
+        return textField.getPlaceholder();
+    }
+
+    /**
+     * Sets the search button position relative to the search field.
+     *
+     * @param position
+     *         position of the search button relative to the search field
+     */
     public void setSearchButtonPosition(ButtonPosition position) {
         if (position == null) {
             throw new IllegalArgumentException(
@@ -112,12 +140,58 @@ public class SearchBox<T> extends CustomComponent implements
         }
     }
 
+    /**
+     * Gets the search button position relative to the search field.
+     *
+     * @return position of the search button relative to the search field
+     */
+    public ButtonPosition getSearchButtonPosition() {
+        return buttonPosition;
+    }
+
+    /**
+     * Sets the icon for the search button.
+     *
+     * @param icon
+     *         the icon resource to be shown with the search button's caption
+     * @see Button#setIcon(Resource)
+     */
     public void setSearchButtonIcon(Resource icon) {
         searchButton.setIcon(icon);
     }
 
+    /**
+     * Sets the icon and alternate text for the search button. An alt text is
+     * shown when an image could not be loaded and read by assistive devices.
+     *
+     * @param icon
+     *         the icon resource to be shown with the search button's caption
+     * @param iconAltText
+     *         string to use as alternate text
+     * @see Button#setIcon(Resource, String)
+     */
     public void setSearchButtonIcon(Resource icon, String iconAltText) {
         searchButton.setIcon(icon, iconAltText);
+    }
+
+    /**
+     * Gets the search button's icon.
+     *
+     * @return the resource of the search button's icon
+     * @see Button#getIcon()
+     */
+    public Resource getSearchButtonIcon() {
+        return searchButton.getIcon();
+    }
+
+    /**
+     * Gets the search button's alternate text.
+     *
+     * @return the alternate text of the search button
+     * @see Button#getIconAlternateText()
+     */
+    public String getSearchButtonAltText() {
+        return searchButton.getIconAlternateText();
     }
 
     public void setSearchButtonCaption(String caption) {
@@ -141,11 +215,28 @@ public class SearchBox<T> extends CustomComponent implements
         }
     }
 
+    /**
+     * Adds listener for search events. Search event is fired on user input with
+     * frequency depending on search mode set for the component.
+     *
+     * @param listener
+     *         search event listener
+     * @return registration handle for removing the listener
+     * @see SearchEvent
+     * @see #setSearchMode(SearchMode)
+     */
     public Registration addSearchListener(SearchListener listener) {
         return addListener(SearchEvent.class, listener,
                 SearchListener.SEARCH_METHOD);
     }
 
+    /**
+     * Sets the search mode for the component. The frequency of search events is
+     * dependent of the search mode set here.
+     *
+     * @param searchMode
+     *         search mode to be set for the component
+     */
     public void setSearchMode(SearchMode searchMode) {
         if (searchMode == null) {
             throw new IllegalArgumentException("Search mode cannot be null");
@@ -156,6 +247,11 @@ public class SearchBox<T> extends CustomComponent implements
         setValueChangeListener();
     }
 
+    /**
+     * Gets the search mode of the component.
+     *
+     * @return search mode currently set for the component
+     */
     public SearchMode getSearchMode() {
         return this.searchMode;
     }
@@ -183,6 +279,17 @@ public class SearchBox<T> extends CustomComponent implements
         }
     }
 
+    /**
+     * Sets the timeout that needs to pass between the last key press and the
+     * search event. Set search mode to {@link SearchMode#DEBOUNCE} for this
+     * parameter to have an effect.
+     *
+     * @param millis
+     *         timeout in millis before search event is fired after last key
+     *         press
+     * @see #setSearchMode(SearchMode)
+     * @see SearchMode#DEBOUNCE
+     */
     public void setDebounceTime(int millis) {
         this.debounceTime = millis;
 
@@ -192,10 +299,27 @@ public class SearchBox<T> extends CustomComponent implements
         }
     }
 
+    /**
+     * Gets the timeout that needs to pass between the last key press and the
+     * search event. This parameter has an effect if the search mode is set to
+     * {@link SearchMode#DEBOUNCE}.
+     *
+     * @return timeout in millis before search event is fired after last key
+     * press
+     * @see #setSearchMode(SearchMode)
+     */
     public int getDebounceTime() {
         return this.debounceTime;
     }
 
+    /**
+     * Sets the suggestion generator for the search field. The generator is used
+     * for creating search suggestions for user input.
+     *
+     * @param generator
+     *         generator to be set
+     * @see AutocompleteExtension#setSuggestionGenerator(SuggestionGenerator)
+     */
     public void setSuggestionGenerator(SuggestionGenerator<T> generator) {
         if (generator != null) {
             ensureAutocomplete().setSuggestionGenerator(generator);
@@ -204,6 +328,10 @@ public class SearchBox<T> extends CustomComponent implements
         }
     }
 
+    /**
+     * Removes suggestion generator and autocomplete functionality from the
+     * search field.
+     */
     public void removeSuggestionGenerator() {
         Optional.ofNullable(suggestionSelectHandle)
                 .ifPresent(Registration::remove);
@@ -224,6 +352,14 @@ public class SearchBox<T> extends CustomComponent implements
         return autocomplete;
     }
 
+    /**
+     * Search command that fires a {@link SearchEvent} with the current search
+     * field value.
+     * <p>
+     * Call this method to initiate search command programmatically.
+     *
+     * @see SearchListener
+     */
     public void search() {
         fireSearchEvent(textField.getValue());
     }
@@ -232,26 +368,79 @@ public class SearchBox<T> extends CustomComponent implements
         fireEvent(new SearchEvent(this, searchTerm));
     }
 
+    /**
+     * Sets the focus on the search field.
+     */
     @Override
     public void focus() {
         textField.focus();
     }
 
+    /**
+     * Gets the tabulator index of the search field.
+     */
     @Override
     public int getTabIndex() {
         return textField.getTabIndex();
     }
 
+    /**
+     * Sets the tabulator index of the search field.
+     */
     @Override
     public void setTabIndex(int tabIndex) {
         textField.setTabIndex(tabIndex);
     }
 
+    /**
+     * Search button positions.
+     */
     public enum ButtonPosition {
-        RIGHT, LEFT, HIDDEN
+        /**
+         * Search button on the right hand side of the search field.
+         */
+        RIGHT,
+
+        /**
+         * Search button on the left hand side of the search field.
+         */
+        LEFT,
+
+        /**
+         * No button on either side of the search field.
+         */
+        HIDDEN
     }
 
+    /**
+     * Search mode that determines how often are search events fired while
+     * typing in the search field.
+     *
+     * @see SearchEvent
+     */
     public enum SearchMode {
-        EAGER, DEBOUNCE, EXPLICIT
+        /**
+         * Most frequent search mode. Search event is fired on every key press.
+         * <p>
+         * The frequency is equivalent to {@link ValueChangeMode#EAGER} on a
+         * TextField.
+         */
+        EAGER,
+
+        /**
+         * Search event is fired after a certain time passed after the last key
+         * press. The timeout can be changed using the {@link
+         * #setDebounceTime(int)} method.
+         * <p>
+         * The frequency is equivalent to {@link ValueChangeMode#TIMEOUT} on a
+         * TextField.
+         */
+        DEBOUNCE,
+
+        /**
+         * Search event is fired only on explicit command, for example when
+         * pressing the search button.
+         */
+        EXPLICIT
     }
 }
