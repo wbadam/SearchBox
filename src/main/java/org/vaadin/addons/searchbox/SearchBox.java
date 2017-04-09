@@ -36,6 +36,9 @@ import com.vaadin.ui.themes.ValoTheme;
  * <p>
  * Search field and search button are customizable through special methods or by
  * accessing the components directly.
+ *
+ * @see SearchMode
+ * @see ButtonPosition
  */
 public class SearchBox extends CustomComponent implements
         Component.Focusable {
@@ -46,8 +49,8 @@ public class SearchBox extends CustomComponent implements
 
     private final TextField textField = new TextField();
 
-    private final Button searchButton = new Button("Search");
-    private ButtonPosition buttonPosition = ButtonPosition.RIGHT;
+    private final Button searchButton = new Button();
+    private ButtonPosition buttonPosition;
 
     private SearchMode searchMode = SearchMode.EXPLICIT;
 
@@ -62,7 +65,7 @@ public class SearchBox extends CustomComponent implements
     /**
      * Creates a search box component.
      */
-    public SearchBox() {
+    private SearchBox() {
         init();
     }
 
@@ -76,7 +79,7 @@ public class SearchBox extends CustomComponent implements
      *         position of the search button
      */
     public SearchBox(String caption, ButtonPosition position) {
-        init();
+        this();
         setSearchButtonCaption(caption);
         setSearchButtonPosition(position);
     }
@@ -91,7 +94,7 @@ public class SearchBox extends CustomComponent implements
      *         position of the search button
      */
     public SearchBox(Resource icon, ButtonPosition position) {
-        init();
+        this();
         setSearchButtonIcon(icon);
         setSearchButtonPosition(position);
     }
@@ -295,7 +298,8 @@ public class SearchBox extends CustomComponent implements
 
     /**
      * Sets the search mode for the component. The frequency of search events is
-     * dependent of the search mode set here.
+     * dependent of the search mode set here. The default is {@link
+     * SearchMode#EXPLICIT}.
      *
      * @param searchMode
      *         search mode to be set for the component
