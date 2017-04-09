@@ -194,8 +194,25 @@ public class SearchBox<T> extends CustomComponent implements
         return searchButton.getIconAlternateText();
     }
 
+    /**
+     * Sets the caption for the search button.
+     *
+     * @param caption
+     *         caption text to be set for the search button
+     * @see Button#setCaption(String)
+     */
     public void setSearchButtonCaption(String caption) {
         searchButton.setCaption(caption);
+    }
+
+    /**
+     * Gets the search button's caption.
+     *
+     * @return caption text of the search button
+     * @see Button#getCaption()
+     */
+    public String getSearchButtonCaption() {
+        return searchButton.getCaption();
     }
 
     private void doLayout() {
