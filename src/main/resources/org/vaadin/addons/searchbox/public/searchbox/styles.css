@@ -3,3 +3,7 @@
     display: inline-flex;
     width: 100%;
 }
+
+.autocomplete-textfield {
+    width: 100%;
+}
