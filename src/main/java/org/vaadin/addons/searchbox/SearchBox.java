@@ -43,7 +43,10 @@ import com.vaadin.ui.themes.ValoTheme;
 public class SearchBox extends CustomComponent implements
         Component.Focusable {
 
-    private static final String CLASS_SEARCH_BOX_WRAPPER = "v-search-box-wrapper";
+    private static final String STYLE_SEARCH_BOX_WRAPPER = "v-search-box-wrapper";
+    private static final String STYLE_BUTTON_LEFT = "button-left";
+    private static final String STYLE_BUTTON_RIGHT = "button-right";
+    private static final String STYLE_BUTTON_JOINED = "button-joined";
 
     private final CssLayout searchBoxLayout = new CssLayout();
 
@@ -101,7 +104,7 @@ public class SearchBox extends CustomComponent implements
 
     private void init() {
         doLayout();
-        searchBoxLayout.addStyleName(CLASS_SEARCH_BOX_WRAPPER);
+        searchBoxLayout.addStyleName(STYLE_SEARCH_BOX_WRAPPER);
 
         textField.setWidth(100, Unit.PERCENTAGE);
 
@@ -264,13 +267,36 @@ public class SearchBox extends CustomComponent implements
         return searchButton.getCaption();
     }
 
+    /**
+     * Sets whether the search button should be joined together with the search
+     * field or be a separate button.
+     * <p>
+     * This method currently adds the {@code button-joined} style name to the
+     * search box wrapper.
+     *
+     * @param joined
+     *         {@code true} if the search button should be joined with the
+     *         search field, {@code false} if the search button should be a
+     *         distinctive button.
+     */
+    public void setButtonJoined(boolean joined) {
+        if (joined) {
+            searchBoxLayout.addStyleName(STYLE_BUTTON_JOINED);
+        } else {
+            searchBoxLayout.removeStyleName(STYLE_BUTTON_JOINED);
+        }
+    }
+
     private void doLayout() {
         searchBoxLayout.removeAllComponents();
         searchBoxLayout.removeStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
+        searchBoxLayout.removeStyleName(STYLE_BUTTON_LEFT);
+        searchBoxLayout.removeStyleName(STYLE_BUTTON_RIGHT);
 
         if (ButtonPosition.LEFT == buttonPosition) {
             searchBoxLayout.addComponent(searchButton);
             searchBoxLayout.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
+            searchBoxLayout.addStyleName(STYLE_BUTTON_LEFT);
         }
 
         searchBoxLayout.addComponent(textField);
@@ -278,6 +304,7 @@ public class SearchBox extends CustomComponent implements
         if (ButtonPosition.RIGHT == buttonPosition) {
             searchBoxLayout.addComponent(searchButton);
             searchBoxLayout.addStyleName(ValoTheme.LAYOUT_COMPONENT_GROUP);
+            searchBoxLayout.addStyleName(STYLE_BUTTON_RIGHT);
         }
     }
 
