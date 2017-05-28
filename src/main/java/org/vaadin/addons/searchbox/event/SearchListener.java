@@ -10,11 +10,13 @@ import com.vaadin.event.ConnectorEventListener;
  * Attach a listener to the search box to handle search events that are fired on
  * search action or periodically.
  *
+ * @param <T>
+ *         type of the suggestion items if applicable
  * @see SearchEvent
  * @see org.vaadin.addons.searchbox.SearchBox#addSearchListener(SearchListener)
  */
 @FunctionalInterface
-public interface SearchListener extends ConnectorEventListener {
+public interface SearchListener<T> extends ConnectorEventListener {
 
     Method SEARCH_METHOD = SearchListener.class.getDeclaredMethods()[0];
 
@@ -24,5 +26,5 @@ public interface SearchListener extends ConnectorEventListener {
      * @param event
      *         the search event
      */
-    void search(SearchEvent event);
+    void search(SearchEvent<T> event);
 }

@@ -316,11 +316,13 @@ public class SearchBox extends CustomComponent implements
      *
      * @param listener
      *         search event listener
+     * @param <T>
+     *         type of the suggestion items if applicable
      * @return registration handle for removing the listener
      * @see SearchEvent
      * @see #setSearchMode(SearchMode)
      */
-    public Registration addSearchListener(SearchListener listener) {
+    public <T> Registration addSearchListener(SearchListener<T> listener) {
         return addListener(SearchEvent.class, listener,
                 SearchListener.SEARCH_METHOD);
     }
@@ -457,7 +459,8 @@ public class SearchBox extends CustomComponent implements
 
             // Fire search event on selecting suggestion
             suggestionSelectHandle = autocomplete.addSuggestionSelectListener(
-                    event -> fireSearchEvent(event.getSelectedValue()));
+                    event -> fireSearchEvent(event.getSelectedValue(),
+                            event.getSelectedItem()));
         }
     }
 
@@ -535,6 +538,10 @@ public class SearchBox extends CustomComponent implements
 
     private void fireSearchEvent(String searchTerm) {
         fireEvent(new SearchEvent(this, searchTerm));
+    }
+
+    private <T> void fireSearchEvent(String searchTerm, T selectedItem) {
+        fireEvent(new SearchEvent<>(this, searchTerm, selectedItem));
     }
 
     /**
