@@ -462,6 +462,55 @@ public class SearchBox extends CustomComponent implements
     }
 
     /**
+     * Sets the maximum size of the suggestion list if a generator is present.
+     *
+     * @param size
+     *         desired maximum size of the suggestion list
+     * @see #setSuggestionGenerator(SuggestionGenerator)
+     */
+    public void setSuggestionListSize(int size) {
+        if (autocomplete != null) {
+            autocomplete.setSuggestionListSize(size);
+        }
+    }
+
+    /**
+     * Gets the maximum size of the suggestion list if a suggestion generator is
+     * present.
+     *
+     * @return size of the suggestion list, or {@code -1} if generator is not
+     * set
+     */
+    public int getSuggestionListSize() {
+        return Optional.ofNullable(autocomplete)
+                .map(AutocompleteExtension::getSuggestionListSize).orElse(-1);
+    }
+
+    /**
+     * Sets the delay between the last typed character and the suggestion query.
+     * Does not have effect when suggestion generator isn't set.
+     *
+     * @param delayInMillis
+     *         delay in milliseconds
+     * @see #setSuggestionGenerator(SuggestionGenerator)
+     */
+    public void setSuggestionDelay(int delayInMillis) {
+        if (autocomplete != null) {
+            autocomplete.setSuggestionDelay(delayInMillis);
+        }
+    }
+
+    /**
+     * Gets the delay between the last typed character and the suggestion query.
+     *
+     * @return delay in milliseconds, or {@code -1} if generator is not set
+     */
+    public int getSuggestionDelay() {
+        return Optional.ofNullable(autocomplete)
+                .map(AutocompleteExtension::getSuggestionDelay).orElse(-1);
+    }
+
+    /**
      * Removes suggestion generator and autocomplete functionality from the
      * search field.
      */
