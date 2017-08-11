@@ -1,16 +1,17 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
+    <name>searchbox</name>
     <groupId>org.vaadin.addons</groupId>
     <artifactId>searchbox</artifactId>
-    <version>0.1.0-SNAPSHOT</version>
+    <version>0.1-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <organization>
         <name>Vaadin Community</name>
     </organization>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <vaadin.version>8.0.3</vaadin.version>
+        <vaadin.version>8.0.6</vaadin.version>
         <vaadin.plugin.version>${vaadin.version}</vaadin.plugin.version>
         <!-- ZIP Manifest fields -->
         <Implementation-Version>${project.version}</Implementation-Version>
@@ -69,7 +70,7 @@
         <dependency>
             <groupId>org.vaadin.addons</groupId>
             <artifactId>autocomplete</artifactId>
-            <version>0.2.0-SNAPSHOT</version>
+            <version>0.2.2</version>
         </dependency>
     </dependencies>
     <repositories>
