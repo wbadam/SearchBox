@@ -460,7 +460,7 @@ public class SearchBox extends CustomComponent implements
             // Fire search event on selecting suggestion
             suggestionSelectHandle = autocomplete.addSuggestionSelectListener(
                     event -> fireSearchEvent(event.getSelectedValue(),
-                            event.getSelectedItem()));
+                            event.getSelectedItem().orElse(null)));
         }
     }
 
