@@ -24,7 +24,7 @@
     <scm>
         <url>https://github.com/wbadam/SearchBox</url>
         <connection>scm:git:git://github.com/wbadam/SearchBox.git</connection>
-        <developerConnection>scm:git:ssh://git@github.com:/wbadam.SearchBox.git</developerConnection>
+        <developerConnection>scm:git:ssh://git@github.com:/wbadam/SearchBox.git</developerConnection>
     </scm>
     <issueManagement>
         <system>GitHub</system>
