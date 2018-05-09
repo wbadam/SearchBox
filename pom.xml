@@ -3,7 +3,7 @@
     <name>searchbox</name>
     <groupId>org.vaadin.addons</groupId>
     <artifactId>searchbox</artifactId>
-    <version>0.1.2</version>
+    <version>0.1.3-SNAPSHOT</version>
     <packaging>bundle</packaging>
     <organization>
         <name>Vaadin Community</name>
@@ -24,7 +24,7 @@
         <url>https://github.com/wbadam/SearchBox</url>
         <connection>scm:git:git://github.com/wbadam/SearchBox.git</connection>
         <developerConnection>scm:git:ssh://git@github.com:/wbadam/SearchBox.git</developerConnection>
-      <tag>searchbox-0.1.2</tag>
+      <tag>HEAD</tag>
   </scm>
     <issueManagement>
         <system>GitHub</system>
