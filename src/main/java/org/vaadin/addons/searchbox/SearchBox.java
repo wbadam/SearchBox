@@ -105,10 +105,9 @@ public class SearchBox extends CustomComponent implements
 
     private void init() {
         doLayout();
-		searchBoxLayout.setWidth(100, Unit.PERCENTAGE);
         searchBoxLayout.addStyleName(STYLE_SEARCH_BOX_WRAPPER);
 
-        textField.setWidth(95, Unit.PERCENTAGE);
+        textField.setWidth(100, Unit.PERCENTAGE);
 
         // Search on button click
         buttonClickHandle = searchButton.addClickListener(clickEvent -> {
