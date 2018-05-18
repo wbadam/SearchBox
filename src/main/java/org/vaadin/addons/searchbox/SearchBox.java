@@ -1,14 +1,5 @@
 package org.vaadin.addons.searchbox;
 
-import java.util.Optional;
-
-import org.vaadin.addons.autocomplete.AutocompleteExtension;
-import org.vaadin.addons.autocomplete.converter.SuggestionCaptionConverter;
-import org.vaadin.addons.autocomplete.converter.SuggestionValueConverter;
-import org.vaadin.addons.autocomplete.generator.SuggestionGenerator;
-import org.vaadin.addons.searchbox.event.SearchEvent;
-import org.vaadin.addons.searchbox.event.SearchListener;
-
 import com.vaadin.server.Resource;
 import com.vaadin.shared.Registration;
 import com.vaadin.shared.ui.ValueChangeMode;
@@ -18,6 +9,14 @@ import com.vaadin.ui.CssLayout;
 import com.vaadin.ui.CustomComponent;
 import com.vaadin.ui.TextField;
 import com.vaadin.ui.themes.ValoTheme;
+import org.vaadin.addons.autocomplete.AutocompleteExtension;
+import org.vaadin.addons.autocomplete.converter.SuggestionCaptionConverter;
+import org.vaadin.addons.autocomplete.converter.SuggestionValueConverter;
+import org.vaadin.addons.autocomplete.generator.SuggestionGenerator;
+import org.vaadin.addons.searchbox.event.SearchEvent;
+import org.vaadin.addons.searchbox.event.SearchListener;
+
+import java.util.Optional;
 
 /**
  * Search Box component with autocomplete functionality.
@@ -288,6 +287,17 @@ public class SearchBox extends CustomComponent implements
             searchBoxLayout.removeStyleName(STYLE_BUTTON_JOINED);
         }
     }
+
+	/**
+	 * Adds one or more style names to searchBox layout by using one or multiple
+	 * parameters.
+	 *
+	 * @param styles
+	 *            the style name or style names to be added to the searchBox layout
+	 */
+	public void addSearchBoxLayoutStyleNames(String... styles) {
+    	searchBoxLayout.addStyleNames(styles);
+	}
 
     private void doLayout() {
         searchBoxLayout.removeAllComponents();

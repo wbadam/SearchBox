@@ -50,7 +50,7 @@ There are three search modes to choose from that determines the frequency of sea
 
 - `EXPLICIT` (default): event is fired when search button is clicked or when ENTER key is pressed.
 - `DEBOUNCE`: event is fired when typing stops for a set time.
-- `EXPLICIT`: event is fired at each key press while typing.
+- `EAGER`: event is fired at each key press while typing.
 
 ```Java
 searchBox.setSearchMode(SearchMode.DEBOUNCE);
